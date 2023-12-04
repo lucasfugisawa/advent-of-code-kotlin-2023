@@ -3,8 +3,8 @@ fun main() {
     fun part1(input: List<String>): Int {
 
         fun calibrationValue(word: String): Int {
-            val first = word.first { it.isDigit() }.digitToInt()
-            val last = word.last { it.isDigit() }.digitToInt()
+            val first = word.first(Char::isDigit).digitToInt()
+            val last = word.last(Char::isDigit).digitToInt()
             return (first * 10 + last)
         }
 
@@ -32,9 +32,8 @@ fun main() {
                 "zero" to 0, "one" to 1, "two" to 2, "three" to 3, "four" to 4, "five" to 5, "six" to 6, "seven" to 7, "eight" to 8, "nine" to 9
             )
             val reversedDigitsMap = digitsMap.map { (key, value) -> key.reversed() to value }.toMap()
-            val reversedWord = word.reversed()
             val first = digitsMap[word firstSubstringAmong digitsMap.keys] ?: 0
-            val last = reversedDigitsMap[reversedWord firstSubstringAmong reversedDigitsMap.keys] ?: 0
+            val last = reversedDigitsMap[word.reversed() firstSubstringAmong reversedDigitsMap.keys] ?: 0
             return (first * 10 + last)
         }
         return input.sumOf(::calibrationValue)

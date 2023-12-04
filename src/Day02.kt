@@ -11,7 +11,7 @@ fun main() {
             for (index in 2..<split.size step 2) {
                 val color = split[index + 1]
                 val value = split[index].toInt()
-                if (value > limits[color] ?: Int.MAX_VALUE) {
+                if (value > (limits[color] ?: Int.MAX_VALUE)) {
                     return gameNumber to false
                 }
             }
@@ -19,7 +19,7 @@ fun main() {
         }
 
         return input.map(::gameViability)
-            .filter { (_, isGamePossible) -> isGamePossible }
+            .filter { (_, isViable) -> isViable }
             .sumOf { (gameNumber, _) -> gameNumber }
     }
 
