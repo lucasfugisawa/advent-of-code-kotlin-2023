@@ -28,7 +28,7 @@ fun main() {
         fun minimumCubesPower(input: String): Int {
             val maxQuantityGrabbed = mutableMapOf("red" to 0, "green" to 0, "blue" to 0)
             val split = splitInput(input)
-            for (index in 2..<split.size step 2) {
+            for (index in 2 until split.size step 2) {
                 val color = split[index + 1]
                 val value = split[index].toInt()
                 maxQuantityGrabbed.merge(color, value, ::maxOf)
