@@ -1,3 +1,8 @@
+package day2
+
+import println
+import readInput
+
 fun main() {
 
     fun splitInput(input: String): List<String> = input.split(": ", ", ", "; ", " ")
@@ -40,11 +45,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description:
-    val testInput = readInput("Day02_test")
+    val testInput = readInput("day2/puzzleTestData.txt")
     check(part1(testInput) == 8)
     check(part2(testInput) == 2286)
 
-    val input = readInput("Day02")
+    val input = readInput("day2/puzzleData.txt")
     part1(input).println()
     part2(input).println()
 }

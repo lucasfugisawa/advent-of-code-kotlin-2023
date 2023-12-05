@@ -1,3 +1,8 @@
+package day1
+
+import println
+import readInput
+
 fun main() {
 
     fun part1(input: List<String>): Int {
@@ -39,10 +44,13 @@ fun main() {
         return input.sumOf(::calibrationValue)
     }
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 142)
+    val testInput1 = readInput("day1/puzzleTestData1.txt")
+    check(part1(testInput1) == 142)
 
-    val input = readInput("Day01")
+    val testInput2 = readInput("day1/puzzleTestData2.txt")
+    check(part2(testInput2) == 281)
+
+    val input = readInput("day1/puzzleFullData.txt")
     part1(input).println()
     part2(input).println()
 }
