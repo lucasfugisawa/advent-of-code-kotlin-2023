@@ -76,42 +76,34 @@ class EngineSchematics(
     init {
         var currentPartNumber: PartNumber? = null
         input.forEachIndexed { lineIndex, lineString ->
-            lineString.forEachIndexed { columnIndex, columnChar ->
-                when (columnChar) {
+            lineString.forEachIndexed { charIndex, char ->
+                when (char) {
                     in '0'..'9' -> {
                         if (currentPartNumber == null) {
-                            currentPartNumber = PartNumber(columnChar.digitToInt(), lineIndex, columnIndex)
+                            currentPartNumber = PartNumber(char.digitToInt(), lineIndex, charIndex)
                         } else {
-                            currentPartNumber!!.addDigit(columnChar.digitToInt())
+                            currentPartNumber!!.addDigit(char.digitToInt())
                         }
                     }
 
                     '.' -> {
                         if (currentPartNumber != null) {
-                            addPartNumber(currentPartNumber!!)
+                            partNumbers.add(currentPartNumber!!)
                             currentPartNumber = null
                         }
                     }
 
                     else -> {
                         if (currentPartNumber != null) {
-                            addPartNumber(currentPartNumber!!)
+                            partNumbers.add(currentPartNumber!!)
                             currentPartNumber = null
                         }
-                        addEngine(Engine(columnChar, lineIndex, columnIndex))
+                        engines.add(Engine(char, lineIndex, charIndex))
                     }
                 }
             }
         }
         updateValidity()
-    }
-
-    private fun addEngine(engine: Engine) {
-        engines.add(engine)
-    }
-
-    private fun addPartNumber(partNumber: PartNumber) {
-        partNumbers.add(partNumber)
     }
 
     private fun updateValidity() {
