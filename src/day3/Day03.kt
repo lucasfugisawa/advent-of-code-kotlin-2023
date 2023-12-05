@@ -88,30 +88,22 @@ class EngineSchematics(
 
                     '.' -> {
                         if (currentPartNumber != null) {
-                            addPartNumber(currentPartNumber!!)
+                            partNumbers.add(currentPartNumber!!)
                             currentPartNumber = null
                         }
                     }
 
                     else -> {
                         if (currentPartNumber != null) {
-                            addPartNumber(currentPartNumber!!)
+                            partNumbers.add(currentPartNumber!!)
                             currentPartNumber = null
                         }
-                        addEngine(Engine(columnChar, lineIndex, columnIndex))
+                        engines.add(Engine(columnChar, lineIndex, columnIndex))
                     }
                 }
             }
         }
         updateValidity()
-    }
-
-    private fun addEngine(engine: Engine) {
-        engines.add(engine)
-    }
-
-    private fun addPartNumber(partNumber: PartNumber) {
-        partNumbers.add(partNumber)
     }
 
     private fun updateValidity() {
