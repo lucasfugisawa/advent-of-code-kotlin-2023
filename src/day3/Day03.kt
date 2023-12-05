@@ -103,16 +103,15 @@ class EngineSchematics(
                 }
             }
         }
+        updateValidity()
     }
 
     private fun addEngine(engine: Engine) {
         engines.add(engine)
-        updateValidity()
     }
 
     private fun addPartNumber(partNumber: PartNumber) {
         partNumbers.add(partNumber)
-        updateValidity()
     }
 
     private fun updateValidity() {
