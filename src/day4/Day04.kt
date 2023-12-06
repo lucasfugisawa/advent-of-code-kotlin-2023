@@ -6,9 +6,7 @@ import kotlin.math.pow
 
 fun main() {
 
-    fun part1(lines: List<String>): Int =
-        lines.map { line -> line.toCard() }
-            .sumOf { card -> card.points }
+    fun part1(lines: List<String>): Int = lines.map(String::toCard).sumOf(Card::points)
 
     fun part2(lines: List<String>): Int = 30 // TODO: Implement.
 
@@ -28,11 +26,7 @@ class Card(
     val winningNumbers: List<Int>,
     val availableNumbers: List<Int>,
 ) {
-    val points: Int by lazy {
-        availableNumbers
-            .count { it in winningNumbers }
-            .let(::calculatePoints)
-    }
+    val points: Int by lazy { availableNumbers.count { it in winningNumbers }.let(::calculatePoints) }
 
     private fun calculatePoints(numberOfWinningNumbers: Int): Int =
         if (numberOfWinningNumbers == 0) 0 else 2.0.pow(numberOfWinningNumbers - 1).toInt()
@@ -43,16 +37,14 @@ class Card(
 
 private val cardRegex = """Card\s+(\d+):\s+(\d+(?:\s+\d+)*)\s*\|\s*(\d+(?:\s+\d+)*)""".toRegex()
 
-fun String.toCard(): Card {
-    val matchResult = cardRegex.find(this)
-    if (matchResult != null) {
-        val (cardNumber, winningNumbers, availableNumbers) = matchResult.destructured
-        return Card(
-            cardNumber.toInt(),
-            winningNumbers.split("\\s+".toRegex()).map { it.toInt() },
-            availableNumbers.split("\\s+".toRegex()).map { it.toInt() },
-        )
-    } else {
-        throw IllegalArgumentException("Invalid card line: $this")
-    }
-}
+fun String.toCard(): Card =
+    cardRegex.find(this)
+        ?.destructured
+        ?.let { (cardNumber, winningNumbers, availableNumbers) ->
+            Card(
+                cardNumber.toInt(),
+                winningNumbers.split("\\s+".toRegex()).map(String::toInt),
+                availableNumbers.split("\\s+".toRegex()).map(String::toInt)
+            )
+        }
+        ?: throw IllegalArgumentException("Invalid card line: $this")
